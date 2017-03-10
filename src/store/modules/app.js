@@ -1,4 +1,5 @@
 import * as types from '../mutation-types'
+import router from 'src/router'
 
 const state = {
   current: {
@@ -42,10 +43,10 @@ const mutations = {
     }
   },
 
-  [types.TOGGLE_LANG] (state, route, lang) {
+  [types.TOGGLE_LANG] (state, lang) {
     if (state.current.lang === lang) return
 
-    route.push(route.path.replace(state.current.lang, lang))
+    router.push(router.currentRoute.path.replace(state.current.lang, lang))
     state.current.lang = lang
   }
 

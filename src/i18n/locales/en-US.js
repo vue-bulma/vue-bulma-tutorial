@@ -24,8 +24,9 @@ export default {
       tables: 'Useful Tables'
     }
   },
-  manul: {
+  manual: {
     basic: 'Basic',
-    button: 'Buttons'
+    button: 'Buttons',
+    icon: 'Icons'
   }
 };

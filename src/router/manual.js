@@ -2,16 +2,15 @@ export default [
   {
     name: 'Basic',
     icon: 'fa-laptop',
-    path: '/basic',
+    lableOnly: true,
+    expanded: false,
 
     children: [
       {
-        name: 'Button',
-        path: '/button'
+        name: 'Button'
       },
       {
-        name: 'Icon',
-        path: '/icon'
+        name: 'Icon'
       }
     ]
   }

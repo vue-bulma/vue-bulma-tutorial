@@ -16,22 +16,25 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbb
 
 ```html
 <template>
-  <div class="block is-flex">
-    <collapse>
-      <collapse-item title="Components">
-        Components
-      </collapse-item>
-      <collapse-item title="Elements">
-        Elements
-      </collapse-item>
-      <collapse-item title="Nests">
-        <collapse>
-          <collapse-item title="Nest Child">
-            内嵌
-          </collapse-item>
-        </collapse>
-      </collapse-item>
-    </collapse>
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <h1 class="title">Options</h1>
+      <div class="block">
+        <button class="button">Button</button>
+        <button class="button is-white">White</button>
+        <button class="button is-light">Light</button>
+        <button class="button is-dark">Dark</button>
+        <button class="button is-black">Black</button>
+        <button class="button is-link">Link</button>
+      </div>
+      <div class="block">
+        <button class="button is-primary">Primary</button>
+        <button class="button is-info">Info</button>
+        <button class="button is-success">Success</button>
+        <button class="button is-warning">Warning</button>
+        <button class="button is-danger">Danger</button>
+      </div>
+    </article>
   </div>
 </template>
 ```

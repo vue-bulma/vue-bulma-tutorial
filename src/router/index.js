@@ -6,48 +6,42 @@ import { loadView, loadDoc} from 'src/utils/lazyLoading'
 Vue.use(Router)
 
 const defaultPath = '/zh-CN'
-const langs = Object.keys(locales)
 
-function generateDocRouteItem (item, lang) {
-  return {
-    name: item.name + '-' + lang,
-    path: '/' + lang + item.path,
-    component: loadDoc(item.name, lang),
-    meta: {
-      label: locales[lang][item.name.toLowerCase()],
-      icon: item.icon
-    }
-  }
-}
-
-function generateDocRoutes (items = [], routes = []) {
-  for (let idx = 0, len = langs.length; idx < len; idx++) {
-
-    let lang = langs[idx]
-
-    for (let i = 0, l = items.length; i < l; i++) {
-      let item = items[i]
-      if (item.name) {
-        let route = generateDocRouteItem(item, lang)
-
-        if (item.children) {
-          route.children = []
-          generateDocRoutes(item.children, route.children)
+function generateRouteByLang (items, lang, routes = []) {
+  for (let i = 0, l = items.length; i < l; i++) {
+    let item = items[i]
+    if (item.name && !item.lableOnly) {
+      routes.push({
+        name: item.name + '-' + lang,
+        path: item.path ? (lang + item.path) : (lang + '/' + item.name.toLowerCase()),
+        component: loadDoc(item.name, lang),
+        meta: {
+          label: locales[lang][item.name.toLowerCase()],
+          icon: item.icon
         }
+      })
+    } 
 
-        routes.push(route)
-      } 
+    if (item.children) {
+      generateRouteByLang(item.children, lang, routes)
     }
   }
-  
+
   return routes
 }
 
-const manulRoutes = generateDocRoutes(manual)
-console.log(manual)
-console.log(manulRoutes)
+function generateRoutes (items) {
+  let routes = []
+  let langs = Object.keys(locales)
 
-const router = new Router({
+  for (let idx = 0, len = langs.length; idx < len; idx++) {
+    routes.push(...generateRouteByLang(items, langs[idx]))
+  }
+
+  return routes
+}
+
+export default new Router({
   mode: 'hash',
   linkActiveClass: 'is-active',
   scrollBehavior: () => ({ y: 0 }),
@@ -67,25 +61,7 @@ const router = new Router({
       path: '/manual',
       component: loadView('Manual'),
 
-      children: [
-        {
-          name: 'Install-zh-CN',
-          path: '/install',
-          component: loadDoc('Install', 'zh-CN')
-        },
-        {
-          name: 'Basic-zh-CN',
-          path: '/basic',
-
-          children: [
-            {
-              name: 'Button-zh-CN',
-              path: '/button',
-              component: loadDoc('Button', 'zh-CN')
-            }
-          ]
-        }
-      ]
+      children: generateRoutes(manual)
     },
     {
       path: '*',
@@ -93,8 +69,3 @@ const router = new Router({
     }
   ]
 })
-
-export {
-  router,
-  manulRoutes
-}

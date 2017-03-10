@@ -12,4 +12,4 @@ export const switchEffect = ({ commit }, effectItem) => {
   }
 }
 
-export const toggleLang = ({ commit }, route, lang) => commit(types.TOGGLE_LANG, route, lang)
+export const toggleLang = ({ commit }, lang) => commit(types.TOGGLE_LANG, lang)

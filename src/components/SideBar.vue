@@ -1,30 +1,28 @@
 <template>
-  <article class="menu manual-sidebar">
+  <article class="menu app-sidebar">
     <!-- <p class="menu-label">
       {{menuHeader}}
     </p> -->
-    <p class="menu-label">
-      Manul
-    </p>
     <ul class="menu-list">
-      <li v-for="(item, index) in items">
-        <router-link :to="`/${current.lang}${item.path}`" :exact="true"  v-if="item.path">
-          <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
-          {{item.meta.label}}
+      <li v-for="(item, index) in menuItems">
+        <router-link :aria-expanded="isExpanded(item) ? 'true' : 'false'"
+          :to="`/${category}/${current.lang}/${item.name.toLowerCase()}`" :exact="true"  v-if="!item.lableOnly">
+          <span class="icon is-small"><i :class="['fa', item.icon]"></i></span>
+          {{ getItemLabel(item) }}
         </router-link>
-        <a :aria-expanded="true" v-else @click="toggle(index, item)">
-          <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
-          {{ item.meta.label || item.name }}
+        <a aria-expanded="isExpanded(item)" v-else @click="item.expanded = !item.expanded">
+          <span class="icon is-small"><i :class="['fa', item.icon]"></i></span>
+          {{ getItemLabel(item) }}
           <span class="icon is-small is-angle" v-if="item.children && item.children.length">
             <i class="fa fa-angle-down"></i>
           </span>
         </a>
 
         <expanding v-if="item.children && item.children.length">
-          <ul v-show="true">
-            <li v-for="subItem in item.children" v-if="subItem.path">
-              <router-link :to="subItem.path">
-                {{ subItem.meta && subItem.meta.label || subItem.name }}
+          <ul v-show="isExpanded(item)">
+            <li v-for="subItem in item.children" v-if="!subItem.lableOnly">
+              <router-link :to="`/${category}/${current.lang}/${subItem.name.toLowerCase()}`">
+                {{ getItemLabel(subItem) }}
               </router-link>
             </li>
           </ul>
@@ -48,18 +46,34 @@ export default {
       type: Array,
       default: []
     },
+    category: String,
     show: Boolean
   },
 
   data () {
     return {
-      isReady: false
+      isReady: false,
+      menuItems: this.items
     }
   },
 
   methods: {
-    toggle (index, item) {
-      console.log('toggle')
+    isExpanded (item) {
+      return item.expanded
+    },
+    getItemLabel (item) {
+      return this.$t(this.category + '.' + item.name.toLowerCase())
+    },
+    expandMatchItem (route) {
+      let matchedName = route.name.replace('-' + this.current.lang, '')
+
+      this.menuItems.forEach((menuItem) => {
+        if (menuItem.children) {
+          menuItem.children.forEach((item) => {
+            if (item.name === matchedName) menuItem.expanded = true
+          })
+        }
+      })
     }
   },
 
@@ -67,6 +81,7 @@ export default {
     let route = this.$route
     if (route.name) {
       this.isReady = true
+      this.expandMatchItem(route)
     }
   },
 
@@ -93,7 +108,7 @@ export default {
 @import '~bulma/sass/utilities/mixins';
 $primary: #772b90;
 
-.manual-sidebar {
+.app-sidebar {
   width: 20%;
   min-width: 10rem;
   background: #FFF;
@@ -118,6 +133,8 @@ $primary: #772b90;
   }
 
   .menu-list {
+    padding-top: 1rem;
+
     li a {
       &[aria-expanded="true"] {
         .is-angle {

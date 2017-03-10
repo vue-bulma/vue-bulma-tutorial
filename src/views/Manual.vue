@@ -1,9 +1,16 @@
 <template>
   <div class="tile is-ancestor">
     <div class="tile is-parent">
-      <sidebar :show="sidebar.opened && !sidebar.hidden" :items="menuItems" v-show="!device.isMobile"></sidebar>
+      <sidebar :show="sidebar.opened && !sidebar.hidden" 
+        :items="menuItems" category="manual" v-show="!device.isMobile"></sidebar>
       <article class="card">
-        <router-view></router-view>
+        <transition
+          mode="out-in"
+          enter-active-class="fadeIn"
+          leave-active-class="fadeOut"
+          appear>
+          <router-view class="animated"></router-view>
+        </transition>
       </article>
     </div>
   </div>
@@ -12,7 +19,7 @@
 <script>
 import Sidebar from 'components/SideBar'
 import { mapGetters, mapActions } from 'vuex'
-import { manulRoutes } from 'src/router'
+import manual from 'src/router/manual'
 
 export default {
   components: {
@@ -20,16 +27,16 @@ export default {
   },
 
   methods: {
-    reRenderAnchor() {
+    reRenderAnchor () {
       const anchors = document.querySelectorAll('.header-anchor')
       const basePath = window.location.href.split('#').splice(0, 2).join('#')
 
       anchors.forEach((a) => {
         const href = a.getAttribute('href')
-        a.href = basePath + href;
+        a.href = basePath + href
       })
     },
-    goAnchor() {
+    goAnchor () {
       if (window.location.href.match(/#/g).length > 1) {
         const anchor = window.location.href.match(/#[^#]+$/g)
         if (!anchor) return
@@ -49,8 +56,7 @@ export default {
       current: 'current'
     }),
     menuItems () {
-      console.log(this.current.lang, manulRoutes)
-      return manulRoutes[this.current.lang]
+      return manual
     }
   },
 

@@ -39,7 +39,7 @@
               <li v-for="(text, lang) in langs" class="hvr-shadow-radial">
                  <a href="javascript:void(0);"
                    :class="{ 'is-active': $i18n.locale === lang }"
-                   @click="$i18n.locale = lang">{{text}}</a>
+                   @click="setLang(lang)">{{text}}</a>
               </li>
             </ul>
           </span>
@@ -62,7 +62,7 @@
               <li v-for="(text, lang) in langs" class="hvr-shadow-radial">
                  <a href="javascript:void(0);"
                    :class="{ 'is-active': $i18n.locale === lang }"
-                   @click="$i18n.locale = lang">{{text}}</a>
+                   @click="setLang(lang)">{{text}}</a>
               </li>
             </ul>
           </span>
@@ -94,9 +94,17 @@ export default {
     current: 'current'
   }),
 
-  methods: mapActions([
-    'toggleSidebar'
-  ])
+  methods: {
+    ...mapActions([
+      'toggleSidebar',
+      'toggleLang'
+    ]),
+    setLang (lang) {
+      console.log(this.$i18n)
+      this.$i18n.locale = lang
+      this.toggleLang(lang)
+    }
+  }
 }
 </script>
 

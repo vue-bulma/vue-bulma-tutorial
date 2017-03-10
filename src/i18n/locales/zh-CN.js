@@ -24,8 +24,9 @@ export default {
       tables: '实用的表格'
     }
   },
-  manul: {
+  manual: {
     basic: '基础组件',
-    button: '按钮'
+    button: '按钮',
+    icon: '图标'
   }
 };
