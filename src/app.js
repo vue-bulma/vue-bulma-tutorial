@@ -8,7 +8,9 @@ import router from './router'
 import store from './store'
 import { TOGGLE_PAGE, TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import locales from 'i18n/locales'
+import Promise from 'es6-promise'
 
+Promise.polyfill()
 Vue.use(NProgress)
 Vue.use(VueI18n)
 Vue.component('demo-section', DemoSection)
