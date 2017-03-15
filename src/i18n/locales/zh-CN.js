@@ -25,6 +25,7 @@ export default {
     }
   },
   manual: {
+    install: '安装使用',
     basic: '基础组件',
     button: '按钮',
     icon: '图标',

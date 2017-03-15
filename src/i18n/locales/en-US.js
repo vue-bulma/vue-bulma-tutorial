@@ -25,6 +25,7 @@ export default {
     }
   },
   manual: {
+    install: 'Install',
     basic: 'Basic',
     button: 'Buttons',
     icon: 'Icons',

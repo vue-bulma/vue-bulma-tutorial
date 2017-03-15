@@ -1,5 +1,9 @@
 export default [
   {
+    name: 'Install',
+    icon: 'fa-laptop'
+  },
+  {
     name: 'Basic',
     icon: 'fa-laptop',
     lableOnly: true,
