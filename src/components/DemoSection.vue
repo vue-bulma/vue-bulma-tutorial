@@ -1,106 +1,120 @@
 <template>
-  <section class="demo">
-    <slot name="demo"></slot>
-    <div class="box-demo-description">
+  <section :id="demoId" class="demo-section">
+    <div class="card">
+      <div class="card-content">
+        <slot name="demo"></slot>
+      </div>
+      <h2 class="demo-title">
+        <a class="demo-anchor">{{title}}</a>
+      </h2>
       <slot name="description"></slot>
-      <span class="btn-toggle" :class="{open: isOpen}" @click="toggle"><i class="fa fa-chevron-down"></i></span>
-    </div>
-      <transition name="slide">
-        <div class="box-demo-code" v-show="isOpen">
+      <header class="card-header" @click="showCode = !showCode">
+        <p class="card-header-title">
+          查看代码
+        </p>
+        <a class="card-header-icon" :aria-expanded="showCode">
+          <span class="icon is-angle">
+            <i class="fa fa-angle-down"></i>
+          </span>
+        </a>
+      </header>
+      <expanding>
+        <div class="content" v-show="showCode">
           <slot name="code"></slot>
         </div>
-      </transition>
+      </expanding>
+    </div>
   </section>
 </template>
 
 <script>
+import Expanding from 'vue-bulma-expanding'
+import { slugify } from 'transliteration'
+
 export default {
+  data () {
+    return {
+      showCode: false
+    }
+  },
   props: {
     jsfiddle: Object,
+    anchor: String,
+    title: String
   },
-  data() {
-    return {
-      isOpen: false,
-    };
+  components: {
+    Expanding
   },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
-    },
-  },
+  computed: {
+    demoId () {
+      return slugify(this.title)
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>
 @import '../styles/code-md.css';
 
-.box-demo{
-  padding: 0;
-  border: 1px solid #e9e9e9;
-  border-radius: 4px;
-  box-shadow: none;
-}
-.box-demo-show{
-  padding: 20px 25px 30px;
-  border-bottom: 1px solid #e9e9e9;
-}
-.box-demo-description{
-  position: relative;
-  padding: 17px 16px 15px 20px;
-  border-radius: 0 0 6px 6px;
-  -webkit-transition: background-color 0.4s ease;
-  transition: background-color 0.4s ease;
-  width: 100%;
-  font-size: 12px;
-  &.bordered{
-    border-bottom: 1px dashed #e9e9e9;
-  }
-  h3, h4{
-    position: absolute;
-    top: -14px;
-    padding: 1px 8px;
-    margin-left: -8px;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: #777;
-    border-radius: 4px;
-    border-top-left-radius: 0;
-    background: #fff;
-    -webkit-transition: background-color 0.4s ease;
-    transition: background-color 0.4s ease;
-    .header-anchor{
-      display: none;
+.demo-section {
+  margin-top: 2rem;
+
+  .demo-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: rgba(10, 10, 10, 0.1);
+      position: absolute;
+      top: 10px;
+      left: 0;
+    }
+
+    a {
+      background: #fff;
+      padding: 0 0.5rem 0 1rem;
+      position: relative;
+      margin-left: 30px;
     }
   }
-  li{
-    line-height: 21px;
+
+  .description {
+    padding: 0 1.5rem 1.5rem 1.5rem;
   }
-}
-.box-demo-code{
-  -webkit-transition: height .2s ease-in-out;
-  transition: height .2s ease-in-out;
-  overflow: auto;
-}
-.btn-toggle{
-  position: absolute;
-  right: 16px;
-  bottom: 17px;
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
-  font-size: 18px;
-  line-height: 18px;
-  color: #999;
-  i{
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+
+  .card-header {
+    border-top: rgba(10, 10, 10, 0.1) 1px solid
   }
-  &.open{
-    i{
-      -webkit-transform: rotate(-180deg);
-      -ms-transform: rotate(-180deg);
-      transform: rotate(-180deg);
+
+  header.card-header {
+    cursor: pointer;
+    a.card-header-icon {
+      .is-angle {
+        transition: transform .377s ease;
+      }
+
+      &[aria-expanded="true"] {
+        .is-angle {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    p.card-header-title {
+      font-weight: 500;
+      padding-left: 1.5rem;
     }
   }
 }
 
+</style>
+
+<style>
+.demo-section pre {
+  border-top: rgba(10, 10, 10, 0.1) 1px solid;
+  background-color: white;
+}
 </style>

@@ -9,7 +9,7 @@
           enter-active-class="fadeIn"
           leave-active-class="fadeOut"
           appear>
-          <router-view class="animated"></router-view>
+          <router-view class="animated manual-content"></router-view>
         </transition>
       </article>
     </div>
@@ -26,29 +26,6 @@ export default {
     Sidebar
   },
 
-  methods: {
-    reRenderAnchor () {
-      const anchors = document.querySelectorAll('.header-anchor')
-      const basePath = window.location.href.split('#').splice(0, 2).join('#')
-
-      anchors.forEach((a) => {
-        const href = a.getAttribute('href')
-        a.href = basePath + href
-      })
-    },
-    goAnchor () {
-      if (window.location.href.match(/#/g).length > 1) {
-        const anchor = window.location.href.match(/#[^#]+$/g)
-        if (!anchor) return
-        const elm = document.querySelector(anchor[0])
-        if (!elm) return
-        setTimeout(() => {
-          document.documentElement.scrollTop = document.body.scrollTop = elm.offsetTop + 30
-        }, 50)
-      }
-    }
-  },
-
   computed: {
     ...mapGetters({
       device: 'device',
@@ -58,22 +35,6 @@ export default {
     menuItems () {
       return manual
     }
-  },
-
-  created() {
-    window.addEventListener('hashchange', () => {
-      if (window.location.href.match(/#/g).length < 2) {
-        document.documentElement.scrollTop = document.body.scrollTop = 0
-        this.reRenderAnchor()
-      } else {
-        this.goAnchor()
-      }
-    })
-  },
-
-  mounted() {
-    this.reRenderAnchor()
-    this.goAnchor()
   }
 }
 </script>
@@ -91,10 +52,41 @@ div.is-ancestor {
     width: 100%;
     padding: 1rem 3rem;
 
-    section > h1 {
-      font-size: 2rem; 
+    @include mobile() {
+      padding: 1rem;
     }
   }
 }
 
+</style>
+
+<style lang="scss">
+.manual-content {
+  > h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+
+    a {
+      padding-right: 0.3rem;
+    }
+  }
+
+  > hr {
+    margin: 1rem 0;
+  }
+
+  > h2 {
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+
+    a {
+      padding-right: 0.3rem;
+    }
+  }
+
+  > p {
+    padding-left: 1rem;
+  }
+}
 </style>

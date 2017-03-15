@@ -13,5 +13,17 @@ export default [
         name: 'Icon'
       }
     ]
+  },
+  {
+    name: 'Interact',
+    icon: 'fa-laptop',
+    lableOnly: true,
+    expanded: false,
+
+    children: [
+      {
+        name: 'Collapse'
+      }
+    ]
   }
 ]

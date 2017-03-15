@@ -27,6 +27,8 @@ export default {
   manual: {
     basic: 'Basic',
     button: 'Buttons',
-    icon: 'Icons'
+    icon: 'Icons',
+    interact: 'Interact',
+    collapse: 'Collapse'
   }
 };

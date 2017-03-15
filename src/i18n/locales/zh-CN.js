@@ -27,6 +27,8 @@ export default {
   manual: {
     basic: '基础组件',
     button: '按钮',
-    icon: '图标'
+    icon: '图标',
+    interact: '交互组件',
+    collapse: '折叠组件'
   }
 };

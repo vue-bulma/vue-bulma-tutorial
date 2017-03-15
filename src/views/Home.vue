@@ -24,13 +24,13 @@
         <p class="subtitle">{{$t('home.brief[5]')}}</p>
       </div>
       <p class="hero-buttons">
-        <a class="button is-large hvr-buzz" href="https://github.com/jgthms/bulma/archive/0.3.2.zip">
+        <a class="button is-large hvr-buzz">
           <span class="icon">
             <i class="fa fa-television"></i>
           </span>
           <span>{{$t('home.brief[6]')}}</span>
         </a>
-        <a class="button is-large hvr-buzz" href="/documentation/overview/start/">
+        <a class="button is-large hvr-buzz">
           <span class="icon">
             <i class="fa fa-book"></i>
           </span>

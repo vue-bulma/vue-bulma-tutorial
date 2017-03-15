@@ -61,11 +61,11 @@ function convert(str) {
 }
 
 markdown.use(require('markdown-it-anchor'), {
-  level: 2,
+  level: 1,
   slugify: slugify,
   permalink: true,
   permalinkBefore: true,
-  permalinkSymbol: 'ζ'
+  permalinkSymbol: '#'
 }).use(require('markdown-it-container'), 'demo', {
   validate(params) {
     return params.trim().match(/^demo\s*(.*)$/)
@@ -73,22 +73,26 @@ markdown.use(require('markdown-it-anchor'), {
   render(tokens, idx) {
     const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
     if (tokens[idx].nesting === 1) {
-      // const description = (m && m.length > 1) ? m[1] : ''
+      const summary = (m && m.length > 1) ? m[1].split('|') : []
       const token = tokens[idx + 1]
       const content = tokens[idx + 1].content
-      const html = convert(strip(content, ['script', 'style'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1');
+      const html = convert(strip(content, ['script', 'style'])).replace(/(<[^>]*)=""(?=.*>)/g, '$1')
       const script = fetch(content, 'script')
       const style = fetch(content, 'style')
       const code = token.markup + token.info + '\n' + content + token.markup
       const codeHtml = code ? markdown.render(code) : ''
-      // const descriptionHTML = description ? markdown.render(description) : ''
+
+      summary.length = 2
+      const subtitleHTML = summary[0] || '无标题示例'
+      const descriptionHTML = summary[1] ? markdown.render(summary[1]) : '无描述信息'
 
       let jsfiddle = { html: html, script: script, style: style }
       jsfiddle = markdown.utils.escapeHtml(JSON.stringify(jsfiddle))
 
-      return `<demo-section :jsfiddle="${jsfiddle}">
+      return `<demo-section :jsfiddle="${jsfiddle}" title="${subtitleHTML}">
               <p class="demo" slot="demo">${html}</p>
-              <p class="highlight" slot="code">${codeHtml}</p>`
+              <p class="highlight" slot="code">${codeHtml}</p>
+              <div class="description" slot="description">${descriptionHTML}</div>`
     }
 
     return '</demo-section>\n'
