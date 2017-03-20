@@ -27,6 +27,11 @@ export default {
     NprogressContainer
   },
 
+  methods: mapActions([
+    'toggleDevice',
+    'toggleSidebar'
+  ]),
+
   beforeMount () {
     const { body } = document
     const WIDTH = 768
@@ -44,12 +49,7 @@ export default {
     document.addEventListener('visibilitychange', handler)
     window.addEventListener('DOMContentLoaded', handler)
     window.addEventListener('resize', handler)
-  },
-
-  methods: mapActions([
-    'toggleDevice',
-    'toggleSidebar'
-  ])
+  }
 }
 </script>
 

@@ -40,3 +40,9 @@ export default {
 ```
 :::
 
+## Collapse Item Attrs
+
+| Name | Type | Desc |
+|------|----|--------|
+| selected | Boolean | Is item expanded.<br>default：`false` |
+| title | String | Title of item. Required. |

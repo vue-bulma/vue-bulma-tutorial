@@ -18,6 +18,7 @@
 <script>
 import Sidebar from 'components/SideBar'
 import { mapGetters, mapActions } from 'vuex'
+import anchor from 'src/utils/anchor'
 import manual from 'src/router/manual'
 
 export default {
@@ -34,6 +35,17 @@ export default {
     menuItems () {
       return manual
     }
+  },
+
+  mounted () {
+    anchor.adjust()
+  },
+
+  watch: {
+    '$route.name' (newvg) {
+      console.log(newvg)
+      anchor.adjust()
+    }
   }
 }
 </script>
@@ -41,6 +53,7 @@ export default {
 <style lang="scss" scoped>
 @import '~bulma/sass/utilities/variables';
 @import '~bulma/sass/utilities/mixins';
+@import '../styles/api-table.css';
 
 div.is-ancestor {
   margin: auto;

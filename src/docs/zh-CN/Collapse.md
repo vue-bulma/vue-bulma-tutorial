@@ -1,4 +1,4 @@
-# 折叠组件
+## 折叠组件
 
 折叠组件用于在页面内容较多时，隐藏部分不重要数据，仅显示标题或重点信息，指引用户自行点击查阅。需要从`vue-bulma-collapse`中引入组件 `Collapse` 和 `Item`
 本示例中将 `Item` 引入并重新命名为 `CollapseItem`
@@ -39,3 +39,9 @@ export default {
 ```
 :::
 
+## Collapse Item 属性
+
+| 名称 | 类型 | 说明 |
+|------|----|--------|
+| selected | Boolean | 折叠面板是否展开<br>默认值：`false` |
+| title | String | 折叠面板的标题，必填 |

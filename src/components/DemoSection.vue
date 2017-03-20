@@ -57,6 +57,7 @@ export default {
 
 .demo-section {
   margin-top: 2rem;
+  margin-bottom: 2rem;
 
   .demo-title {
     font-size: 1.1rem;

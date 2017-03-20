@@ -3,7 +3,7 @@
 Basic component works for triggering bussiness transition. Class `button` can convert element to button.
 
 ---
-
+::: tile aaaaa
 ::: demo 色调样式|色调样式包括白、浅色、深色和黑色。通过设置样式 `is-white` `is-light` `is-dark` 或 `is-black` 来设定。
 
 ```html

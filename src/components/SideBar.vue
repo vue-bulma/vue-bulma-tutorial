@@ -13,11 +13,11 @@
         <li v-for="(item, index) in menuItems">
           <router-link :aria-expanded="isExpanded(item) ? 'true' : 'false'"
             :to="`/${category}/${current.lang}/${item.name.toLowerCase()}`" :exact="true"  v-if="!item.lableOnly">
-            <span class="icon is-small"><i :class="['fa', item.icon]"></i></span>
+            <span class="icon is-small" v-if="item.icon"><i :class="['fa', item.icon]"></i></span>
             {{ getItemLabel(item) }}
           </router-link>
           <a :aria-expanded="isExpanded(item)" v-else @click="item.expanded = !item.expanded">
-            <span class="icon is-small"><i :class="['fa', item.icon]"></i></span>
+            <span class="icon is-small" v-if="item.icon"><i :class="['fa', item.icon]"></i></span>
             {{ getItemLabel(item) }}
             <span class="icon is-small is-angle" v-if="item.children && item.children.length">
               <i class="fa fa-angle-down"></i>
@@ -28,6 +28,9 @@
             <ul v-show="isExpanded(item)">
               <li v-for="subItem in item.children" v-if="!subItem.lableOnly">
                 <router-link :to="`/${category}/${current.lang}/${subItem.name.toLowerCase()}`">
+                  <span class="icon is-small">
+                    <i :class="['fa', subItem.icon]"></i>
+                  </span>
                   {{ getItemLabel(subItem) }}
                 </router-link>
               </li>
@@ -160,6 +163,17 @@ $primary: #772b90;
             transform: rotate(180deg);
           }
         }
+
+        padding-left: 0.2rem;
+      }
+
+      > li > a {
+        padding-left: 1rem;
+      }
+
+      .is-angle {
+        position: relative;
+        left: 3.2rem;
       }
 
       a.is-active {
@@ -170,6 +184,10 @@ $primary: #772b90;
 
       li a + ul {
         margin: 0 10px 0 15px;
+      }
+
+      span.icon {
+        margin-right: 0.25rem;
       }
     }
   }

@@ -1,32 +1,32 @@
 export default [
   {
-    name: 'Install',
-    icon: 'fa-laptop'
+    name: 'Install'
   },
   {
     name: 'Basic',
-    icon: 'fa-laptop',
     lableOnly: true,
     expanded: false,
 
     children: [
       {
-        name: 'Button'
+        name: 'Button',
+        icon: 'fa-laptop'
       },
       {
-        name: 'Icon'
+        name: 'Icon',
+        icon: 'fa-leaf'
       }
     ]
   },
   {
     name: 'Interact',
-    icon: 'fa-laptop',
     lableOnly: true,
     expanded: false,
 
     children: [
       {
-        name: 'Collapse'
+        name: 'Collapse',
+        icon: 'fa-window-maximize'
       }
     ]
   }
