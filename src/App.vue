@@ -99,8 +99,8 @@ a {
 
 .main-container {
   padding-top: 6rem;
+  padding-bottom: 2rem;
   background-color: whitesmoke;
-  transform: translate3d(0, 0, 0);
 
   @include mobile() {
     padding-top: 4rem;

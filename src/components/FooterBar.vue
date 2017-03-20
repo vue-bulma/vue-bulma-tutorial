@@ -3,14 +3,9 @@
     <div class="container">
       <div class="content has-text-centered">
         <p class="social">
-          <a :href="'https://github.com/'">
+          <a href="https://github.com/vue-bulma/vue-bulma-tutorial">
             <span class="icon">
               <i class="fa fa-github"></i>
-            </span>
-          </a>
-          <a href="https://twitter.com/_fundon">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
             </span>
           </a>
         </p>

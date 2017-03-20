@@ -3,19 +3,15 @@
     <div class="hero-head">
       <nav class="nav">
         <div class="nav-left">
-          <a class="nav-item is-hidden-tablet" v-show="current.page === 'manual'" @click="toggleSidebar(!sidebar.opened)">
-            <i class="fa fa-bars" aria-hidden="true"></i>
+          <a class="nav-item hero-brand is-hidden-tablet" href="/#/home">
+            <img src="~assets/logo.png">
+            Vue Bulma
           </a>
           <a class="nav-item hero-brand is-hidden-mobile" href="/#/home">
             <img class="tour-logo" src="~assets/logo.png">
             <div class="tour-title">
               <span class="vue">Vue</span><span class="bulma">Bulma</span>
             </div>
-          </a>
-        </div>
-        <div class="nav-center">
-          <a class="nav-item hero-brand is-hidden-tablet" href="/#/home">
-            <img src="~assets/logo.png">
           </a>
         </div>
         <div class="nav-right is-flex" v-if="device.isMobile">
@@ -96,7 +92,6 @@ export default {
 
   methods: {
     ...mapActions([
-      'toggleSidebar',
       'toggleLang'
     ]),
     setLang (lang) {

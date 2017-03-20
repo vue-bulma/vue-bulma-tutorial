@@ -1,8 +1,7 @@
 <template>
   <div class="tile is-ancestor">
     <div class="tile is-parent">
-      <sidebar :show="sidebar.opened && !sidebar.hidden" 
-        :items="menuItems" category="manual" v-show="!device.isMobile"></sidebar>
+      <sidebar :items="menuItems" category="manual" ></sidebar>
       <article class="card">
         <transition
           mode="out-in"
@@ -51,6 +50,7 @@ div.is-ancestor {
   .is-parent > .card {
     width: 100%;
     padding: 1rem 3rem;
+    transform: translate3d(0, 0, 0);
 
     @include mobile() {
       padding: 1rem;
